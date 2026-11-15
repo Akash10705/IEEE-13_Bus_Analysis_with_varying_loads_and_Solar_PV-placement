@@ -10,13 +10,6 @@ In a existing IEEE 13 Bus unbalanced system introduction of varying loads with s
 # Technical Abstract
 > The study uses four phases: **Base Profiling** sets benchmark power flow; **Load Perturbation** tests grid resilience; **PV Integration** reduces losses via active injection ($P_{\text{PV}}$); and **PV-BESS Optimization** uses battery storage and reactive support to maintain voltages within ANSI C84.1 limits.
 
-# Key words used:
-1. Open-Source Distribution System Simulator
-2. Additional loads
-3. IEEE 13 Bus system
-4. Unbalanced
-5. Capacitor Compensation
-
 # 4-Stage Distribution System Methodology Framework
 
 ## Overview & System Evolution
@@ -97,3 +90,10 @@ $$\text{Load } (P_L + jQ_L) \xrightarrow{\text{Alter}} (P_L' + jQ_L') \xrightarr
 | **Line 671 - 692** | 32.10 | 38.80 | 31.80 | 25.60 | -34.02% |
 | **Line 684 - 611** | 15.40 | 18.60 | 15.20 | 12.10 | -34.95% |
 | **Line 684 - 652** | 21.15 | 25.55 | 20.90 | 16.70 | -34.64% |
+
+# Key words used:
+1. Open-Source Distribution System Simulator
+2. Additional loads
+3. IEEE 13 Bus system
+4. Unbalanced
+5. Capacitor Compensation
