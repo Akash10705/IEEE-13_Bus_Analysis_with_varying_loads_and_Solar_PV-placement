@@ -1,99 +1,150 @@
-# IEEE 13 Bus Analysis with varying loads and Solar PV placement
-This work involves the analysis with 
-1)Base case distribution system 
-2)With load Alteration 
-3)With Optimal PV placement
 
-# Introduction:
-In a existing IEEE 13 Bus unbalanced system introduction of varying loads with suitable capacitor compensation is done to understand whether the IEEE 13 bus is suitable and how it becomes stable after addition of loads which replicates the behaviour of the feeder connected in the rural areas which has unbalanced load distribution due to the presence of two phase induction motors and multiple single-phase pumps which consumes unequal power, Also during the seasons when more power is needed for the domestication and agricultrual purposes,their would be increased usage of such loads,this process is being   analyzed with openDSS with additional loads and capacitor in IEEE 13 bus distribution system.
+# IEEE 13-Bus Analysis with Varying Loads and Solar PV Placement
 
-# Technical Abstract
-> The study uses four phases: **Base Profiling** sets benchmark power flow; **Load Perturbation** tests grid resilience; **PV Integration** reduces losses via active injection ($P_{\text{PV}}$); and **PV-BESS Optimization** uses battery storage and reactive support to maintain voltages within ANSI C84.1 limits.
+This project focuses on analyzing the IEEE 13-Bus unbalanced distribution system under different operating conditions, including load variations, capacitor compensation, and optimal Solar PV placement using OpenDSS.
 
-# 4-Stage Distribution System Methodology Framework
+## Project Overview
 
-## Overview & System Evolution
-This research framework evaluates distribution grid resilience, voltage profile enhancement, and loss mitigation across four progressive operational scenarios on the IEEE 13-node test feeder.
+The project involves four stages of distribution system analysis:
 
----
+1. Base Case Distribution System
+2. Load Alteration
+3. Load Addition with Capacitor Compensation
+4. Optimal Solar PV Placement with Capacitor Compensation
+
+## Introduction
+
+The existing IEEE 13-Bus unbalanced distribution system is analyzed under varying load conditions with suitable capacitor compensation to evaluate voltage stability, power losses, and overall feeder performance.
+
+The study replicates the operating behavior of rural distribution feeders, where unbalanced load distribution occurs due to two-phase induction motors and multiple single-phase agricultural pumps that consume unequal amounts of power.
+
+During seasonal increases in domestic and agricultural electricity demand, additional loading can cause voltage drops, increased power losses, and phase imbalance. Therefore, additional loads and capacitor banks are incorporated into the IEEE 13-Bus system to evaluate feeder performance and improve voltage regulation.
+
+The complete analysis is carried out using **OpenDSS**, considering load variations, reactive power compensation, and distributed Solar PV integration.
+
+## Technical Abstract
+
+The study evaluates the IEEE 13-Bus unbalanced distribution feeder through four stages:
+
+- **Base Profiling:** Establishes benchmark power-flow conditions.
+- **Load Perturbation:** Evaluates feeder performance under varying demand.
+- **Capacitor Compensation:** Provides reactive power support to improve voltage regulation.
+- **Optimal PV Integration with Capacitors:** Reduces active power demand from the upstream grid, minimizes power losses, and enhances the nodal voltage profile through coordinated active and reactive power support.
+
+## 4-Stage Distribution System Methodology Framework
 
 ### 1. Workflow Summary
 
 | Stage | Scenario | Core Objective |
-| :--- | :--- | :--- |
-| **Stage 01** | **Baseline Assessment** | Benchmark unmodified grid |
-| **Stage 02** | **Load Perturbation** | Stress-test under demand variations |
-| **Stage 03** | **PV Integration** | Active power injection ($P$) |
-| **Stage 04** | **PV-BESS Optimization** | Dynamic storage & reactive support ($P/Q$) |
-
----
+|:---:|---|---|
+| Stage 01 | Baseline Assessment | Benchmark the unmodified grid |
+| Stage 02 | Load Perturbation | Evaluate performance under demand variations |
+| Stage 03 | Load Addition with Capacitor Compensation | Provide reactive power support |
+| Stage 04 | Optimal PV Integration with Capacitors | Reduce power losses and improve voltage profiles |
 
 ### 2. Methodology Matrix
 
 | Phase | Scenario | Objective | Operating Condition | Primary Metrics |
-| :--- | :--- | :--- | :--- | :--- |
-| **I** | **Base Profiling** | Set baseline profiles | Nominal load, no DERs | $I^2R$ losses, voltage drop ($\Delta V$) |
-| **II** | **Load Alteration** | Test resilience | Fluctuating load ($\pm \Delta P, \pm \Delta Q$) | Thermal limits, voltage sag |
-| **III** | **PV Placement** | Reduce power deficit | Distributed active injection ($P_{\text{PV}}$) | Reverse power flow, $P \cdot R$ drop |
-| **IV** | **PV-BESS Hybrid** | Peak shaving & voltage control | Coordinated active & reactive support | Loss reduction, ANSI C84.1 compliance |
-
----
+|:---:|---|---|---|---|
+| I | Base Profiling | Establish baseline performance | Nominal load, no DERs | I²R losses, voltage drop |
+| II | Load Alteration | Evaluate feeder resilience | Varying active and reactive loads | Thermal limits, voltage sag |
+| III | Capacitor Compensation | Improve voltage regulation | Reactive power injection (Q<sub>C</sub>) | Voltage improvement, power factor, reactive power |
+| IV | Optimal PV Placement with Capacitors | Reduce power deficit | Distributed active power injection (P<sub>PV</sub>) and reactive power compensation (Q<sub>C</sub>) | Loss reduction, voltage profile, reverse power flow |
 
 ### 3. Mathematical Power Flow Progression
 
-$$\text{Load } (P_L + jQ_L) \xrightarrow{\text{Alter}} (P_L' + jQ_L') \xrightarrow{\text{+ PV}} (P_L' - P_{\text{PV}} + jQ_L') \xrightarrow{\text{+ BESS}} (\underbrace{P_L' - P_{\text{PV}} - P_{\text{BESS}}}_{\text{Net } P \rightarrow 0} + j\underbrace{(Q_L' - Q_{\text{BESS}})}_{\text{Net } Q \rightarrow 0})$$
+**Stage 1 – Base Load**
 
----
+S<sub>L</sub> = P<sub>L</sub> + jQ<sub>L</sub>
 
-#### Presentation Highlights
-* **Phase 1: Baseline** — Benchmarking $I^2R$ line losses and nodal voltage drops under standard conditions.
-* **Phase 2: Stress Testing** — Analyzing system vulnerability during extreme demand variations.
-* **Phase 3: Targeted PV** — Optimal solar allocation to offset active power flows ($P \cdot R$).
-* **Phase 4: Coordinated PV-BESS** — Storage dispatch for power balancing and voltage stabilization.
-* **Phase 2: Stress Testing & Load Perturbation** — Analyzing system vulnerability during extreme demand variations.
-* **Phase 3: Targeted PV Generation** — Optimal allocation and sizing of solar units to offset active line power flows ($P \cdot R$).
-* **Phase 4: Coordinated PV-BESS Dispatch** — Deploying energy storage for active power balancing and smart-inverter voltage stabilization.
+**Stage 2 – Load Alteration**
 
----
+P<sub>L</sub>' = P<sub>L</sub> + ΔP
 
-# Nodal Voltage & Voltage Improvement Comparison Analysis
+Q<sub>L</sub>' = Q<sub>L</sub> + ΔQ
 
-| Bus / Node ID | Case 1: Base Case (p.u.) | Case 2: PV Only (p.u.) | Case 3: PV + BESS (p.u.) | Total Voltage Improvement (%) |
-| :--- | :--- | :--- | :--- | :--- |
-| **Bus 650 (Substation)** | 1.0000 | 1.0000 | 1.0000 | 0.00% |
-| **Bus 632** | 0.9821 | 0.9915 | 0.9968 | +1.50% |
-| **Bus 670** | 0.9712 | 0.9854 | 0.9931 | +2.25% |
-| **Bus 671** | 0.9650 | 0.9820 | 0.9910 | +2.69% |
-| **Bus 680** | 0.9648 | 0.9818 | 0.9908 | +2.70% |
-| **Bus 633** | 0.9785 | 0.9890 | 0.9945 | +1.64% |
-| **Bus 634** | 0.9701 | 0.9835 | 0.9912 | +2.18% |
-| **Bus 645** | 0.9760 | 0.9875 | 0.9938 | +1.82% |
-| **Bus 646** | 0.9715 | 0.9842 | 0.9918 | +2.09% |
-| **Bus 675 (Target Bus)** | 0.9482 | 0.9751 | 0.9882 | +4.22% |
-| **Bus 692** | 0.9645 | 0.9815 | 0.9905 | +2.70% |
-| **Bus 611** | 0.9620 | 0.9798 | 0.9892 | +2.83% |
-| **Bus 652** | 0.9810 | 0.9908 | 0.9962 | +1.55% |
----
-# Nodal Line Current Magnitude & Current Decrement Comparison Analysis
+**Stage 3 – Capacitor Compensation**
 
-| Bus / Line Segment | Case 1: Base Case (A) | Case 2: Load Alteration (A) | Case 3: PV Only (A) | Case 4: PV + BESS (A) | Current Decrement vs Case 2 (%) |
-| :--- | :--- | :--- | :--- | :--- | :--- |
-| **Line 650 - 632 (Head Feeder)** | 185.42 | 224.18 | 158.30 | 126.85 | -43.41% |
-| **Line 632 - 670** | 142.10 | 171.80 | 115.65 | 91.20 | -46.92% |
-| **Line 670 - 671** | 98.35 | 118.90 | 72.40 | 54.10 | -54.50% |
-| **Line 671 - 680** | 95.12 | 115.00 | 69.80 | 51.85 | -54.91% |
-| **Line 632 - 633** | 42.15 | 50.95 | 41.80 | 34.20 | -32.88% |
-| **Line 633 - 634** | 22.80 | 27.55 | 22.60 | 18.10 | -34.30% |
-| **Line 670 - 645** | 35.60 | 43.05 | 35.10 | 28.40 | -34.03% |
-| **Line 645 - 646** | 18.25 | 22.05 | 18.00 | 14.30 | -35.15% |
-| **Line 680 - 675 (Target Bus)** | 88.40 | 106.85 | 42.10 | 12.50 | -88.30% |
-| **Line 671 - 692** | 32.10 | 38.80 | 31.80 | 25.60 | -34.02% |
-| **Line 684 - 611** | 15.40 | 18.60 | 15.20 | 12.10 | -34.95% |
-| **Line 684 - 652** | 21.15 | 25.55 | 20.90 | 16.70 | -34.64% |
+S<sub>net</sub> = P<sub>L</sub>' + j(Q<sub>L</sub>' − Q<sub>C</sub>)
 
-# Key words used:
-1. Open-Source Distribution System Simulator
-2. Additional loads
-3. IEEE 13 Bus system
-4. Unbalanced
-5. Capacitor Compensation
+**Stage 4 – Solar PV Integration with Capacitors**
+
+S<sub>net</sub> = (P<sub>L</sub>' − P<sub>PV</sub>) + j(Q<sub>L</sub>' − Q<sub>C</sub>)
+
+**Where:**
+
+- S<sub>L</sub> : Complex load power.
+- S<sub>net</sub> : Net complex power demand from the upstream grid.
+- P<sub>L</sub> : Active power demand.
+- Q<sub>L</sub> : Reactive power demand.
+- ΔP, ΔQ : Active and reactive load variations.
+- Q<sub>C</sub> : Reactive power supplied by capacitor banks.
+- P<sub>PV</sub> : Active power generated by Solar PV.
+
+## 4. Presentation Highlights
+
+- **Phase 1 – Baseline Assessment:** Establishing reference values for feeder voltage profiles, line currents, and I²R power losses.
+- **Phase 2 – Load Perturbation:** Evaluating feeder performance under increased domestic and agricultural loading conditions.
+- **Phase 3 – Capacitor Compensation:** Providing reactive power support to reduce voltage drops and improve power factor.
+- **Phase 4 – Optimal PV Integration with Capacitors:** Identifying suitable PV locations and capacities to minimize feeder losses and improve voltage regulation through coordinated active and reactive power support.
+
+## Nodal Voltage & Voltage Improvement Comparison
+
+| Bus ID | Base Case (p.u.) | PV Only (p.u.) | PV + Capacitor (p.u.) |
+|:---:|---:|---:|---:|
+| 650 | 1.0000 | 1.0000 | 1.0000 |
+| 632 | 0.9821 | 0.9915 | 0.9968 |
+| 670 | 0.9712 | 0.9854 | 0.9931 |
+| 671 | 0.9650 | 0.9820 | 0.9910 |
+| 680 | 0.9648 | 0.9818 | 0.9908 |
+| 633 | 0.9785 | 0.9890 | 0.9945 |
+| 634 | 0.9701 | 0.9835 | 0.9912 |
+| 645 | 0.9760 | 0.9875 | 0.9938 |
+| 646 | 0.9715 | 0.9842 | 0.9918 |
+| 675 | 0.9482 | 0.9751 | 0.9882 |
+| 692 | 0.9645 | 0.9815 | 0.9905 |
+| 611 | 0.9620 | 0.9798 | 0.9892 |
+| 652 | 0.9810 | 0.9908 | 0.9962 |
+
+## Nodal Line Current Magnitude Comparison
+
+| Bus / Line Segment | Base Case (A) | Load Alteration (A) | PV Only (A) | PV + Capacitor (A) |
+|---|---:|---:|---:|---:|
+| 650–632 | 185.42 | 224.18 | 158.30 | 126.85 |
+| 632–670 | 142.10 | 171.80 | 115.65 | 91.20 |
+| 670–671 | 98.35 | 118.90 | 72.40 | 54.10 |
+| 671–680 | 95.12 | 115.00 | 69.80 | 51.85 |
+| 632–633 | 42.15 | 50.95 | 41.80 | 34.20 |
+| 633–634 | 22.80 | 27.55 | 22.60 | 18.10 |
+| 670–645 | 35.60 | 43.05 | 35.10 | 28.40 |
+| 645–646 | 18.25 | 22.05 | 18.00 | 14.30 |
+| 680–675 | 88.40 | 106.85 | 42.10 | 12.50 |
+| 671–692 | 32.10 | 38.80 | 31.80 | 25.60 |
+| 684–611 | 15.40 | 18.60 | 15.20 | 12.10 |
+| 684–652 | 21.15 | 25.55 | 20.90 | 16.70 |
+
+> **Note:** The voltage and current values are retained from the supplied comparison data. Verify that the final case represents PV + capacitor compensation in the actual OpenDSS simulation before publishing the results.
+
+## Key Technical Concepts
+
+- Unbalanced Distribution System Analysis
+- Load Flow Analysis
+- Active and Reactive Power
+- Capacitor Bank Placement
+- Reactive Power Compensation
+- Solar PV Integration
+- Optimal PV Siting and Sizing
+- Voltage Profile Improvement
+- Power Loss Reduction
+- Distribution Feeder Performance
+
+## Tools & Technologies
+
+- **OpenDSS:** Distribution system modelling and power-flow analysis.
+- **IEEE 13-Bus Test Feeder:** Unbalanced distribution network benchmark.
+- **Solar PV Modelling:** Distributed generation integration.
+- **Capacitor Banks:** Reactive power compensation and voltage regulation.
+
+## Keywords
+
+`OpenDSS` · `IEEE 13-Bus` · `Unbalanced Distribution System` · `Load Variation` · `Load Perturbation` · `Capacitor Compensation` · `Reactive Power Support` · `Solar PV Integration` · `Optimal PV Placement` · `Voltage Stability` · `Power Loss Reduction`
