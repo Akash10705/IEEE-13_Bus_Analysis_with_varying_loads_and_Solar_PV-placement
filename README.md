@@ -1,4 +1,4 @@
-# IEEE-13-Bus-Analysis-with-varying-loads-and-Solar-PV-placement
+# IEEE 13 Bus Analysis with varying loads and Solar PV placement
 This work involves the analysis with 
 1)Base case distribution system 
 2)With load Alteration 
